@@ -46,7 +46,8 @@ public class BlogPostsService {
         if(size > 25) size = 25;
         if(size < 0) size = 5;
         if(page<0) page = 0;
-        if(!orderBy.equals("title") || !orderBy.equals("category")) orderBy = "tempoDiLettura";
+//        if(!(orderBy.equals("title") || orderBy.equals("category"))) orderBy = "tempoDiLettura";
+        if(!orderBy.equals("title") && !orderBy.equals("category")) orderBy = "tempoDiLettura";
         Pageable pageable = PageRequest.of(page,size, Sort.by(orderBy).ascending());
         return this.blogPostRepository.findAll(pageable);
     }
