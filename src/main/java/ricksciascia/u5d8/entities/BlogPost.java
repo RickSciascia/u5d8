@@ -91,6 +91,10 @@ public class BlogPost {
         this.author = author;
     }
 
+    public Author getAuthor() {
+        return this.author;
+    }
+
     @Generated
     public void setTempoDiLettura(final int tempoDiLettura) {
         this.tempoDiLettura = tempoDiLettura;
