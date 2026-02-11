@@ -31,13 +31,11 @@ public class BlogPostsService {
 //        trovo l oggetto autoreBlog per poi allegarlo
         Author autoreBlog = this.authorsService.getAuthorById(authorId);
 //        creo nuovo blog
-        BlogPost newBlog = new BlogPost(payload.getCategory(), payload.getTitle(), payload.getContent(), payload.getTempoDiLettura());
-//        setto l autore del blog con l id che ho recuperato dal payload prima
-        newBlog.setAuthor(autoreBlog);
+        BlogPost newBlog = new BlogPost(payload.getCategory(), payload.getTitle(), payload.getContent(), payload.getTempoDiLettura(), autoreBlog);
 //        salvo
         BlogPost salvato = this.blogPostRepository.save(newBlog);
-//        log
-        System.out.println("Blog " + salvato.getTitle() + " dell'autore: "+ autoreBlog + " salvato correttamente");
+//        loga
+        System.out.println("Blog " + salvato.getTitle() + " dell'autore: "+ salvato.getAuthor() + " salvato correttamente");
 //        ritorno
         return salvato;
     }

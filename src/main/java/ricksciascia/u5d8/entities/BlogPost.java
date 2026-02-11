@@ -21,12 +21,13 @@ public class BlogPost {
     @JoinColumn(name = "author_id",nullable = false)
     private Author author;
 
-    public BlogPost(String category, String title, String content, int tempoDiLettura) {
+    public BlogPost(String category, String title, String content, int tempoDiLettura, Author autore) {
         this.category = category;
         this.title = title;
         this.cover = "https://picsum.photos/200/300";
         this.content = content;
         this.tempoDiLettura = tempoDiLettura;
+        this.author = autore;
     }
 
     public String toString() {
@@ -87,9 +88,9 @@ public class BlogPost {
         this.content = content;
     }
 
-    public void setAuthor(final Author author) {
-        this.author = author;
-    }
+//    public void setAuthor(final Author author) {
+//        this.author = author;
+//    }
 
     public Author getAuthor() {
         return this.author;
