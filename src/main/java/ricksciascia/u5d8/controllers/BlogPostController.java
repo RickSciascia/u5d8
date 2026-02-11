@@ -1,11 +1,14 @@
 package ricksciascia.u5d8.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ricksciascia.u5d8.entities.BlogPost;
 import ricksciascia.u5d8.payloads.BlogPostPayload;
 import ricksciascia.u5d8.services.BlogPostsService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping({"/blogs"})
@@ -22,5 +25,17 @@ public class BlogPostController {
     public BlogPost saveBlogPost(@RequestBody BlogPostPayload payload) {
 
         return this.blogPostsService.saveBlogPost(payload);
+    }
+
+    @GetMapping
+    public Page<BlogPost> findAllBlogs(@RequestParam(defaultValue = "0")int page,
+                                       @RequestParam(defaultValue = "2")int size) {
+
+        return this.blogPostsService.findAllBlogs(page,size);
+    }
+
+    @GetMapping({"/{blogId}"})
+    public BlogPost getBlog(@PathVariable long blogId) {
+        return  this.blogPostsService.getBlogById(blogId);
     }
 }

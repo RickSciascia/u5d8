@@ -1,11 +1,17 @@
 package ricksciascia.u5d8.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ricksciascia.u5d8.entities.Author;
 import ricksciascia.u5d8.entities.BlogPost;
+import ricksciascia.u5d8.exceptions.NotFoundException;
 import ricksciascia.u5d8.payloads.BlogPostPayload;
 import ricksciascia.u5d8.repositories.BlogPostRepository;
+
+import java.util.List;
 
 @Service
 public class BlogPostsService {
@@ -33,5 +39,17 @@ public class BlogPostsService {
         System.out.println("Blog " + salvato.getTitle() + " dell'autore: "+ autoreBlog + " salvato correttamente");
 //        ritorno
         return salvato;
+    }
+
+    public Page<BlogPost> findAllBlogs(int page, int size) {
+        if(size > 25) size = 25;
+        if(size < 0) size = 5;
+        if(page<0) page = 0;
+        Pageable pageable = PageRequest.of(page,size);
+        return this.blogPostRepository.findAll(pageable);
+    }
+
+    public BlogPost getBlogById(long blogId) {
+        return this.blogPostRepository.findById(blogId).orElseThrow(()-> new NotFoundException(blogId));
     }
 }
