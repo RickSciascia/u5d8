@@ -29,9 +29,10 @@ public class BlogPostController {
 
     @GetMapping
     public Page<BlogPost> findAllBlogs(@RequestParam(defaultValue = "0")int page,
-                                       @RequestParam(defaultValue = "2")int size) {
+                                       @RequestParam(defaultValue = "2")int size,
+                                       @RequestParam(defaultValue = "title")String orderBy ) {
 
-        return this.blogPostsService.findAllBlogs(page,size);
+        return this.blogPostsService.findAllBlogs(page,size,orderBy);
     }
 
     @GetMapping({"/{blogId}"})

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ricksciascia.u5d8.entities.Author;
 import ricksciascia.u5d8.entities.BlogPost;
@@ -41,11 +42,12 @@ public class BlogPostsService {
         return salvato;
     }
 
-    public Page<BlogPost> findAllBlogs(int page, int size) {
+    public Page<BlogPost> findAllBlogs(int page, int size, String orderBy) {
         if(size > 25) size = 25;
         if(size < 0) size = 5;
         if(page<0) page = 0;
-        Pageable pageable = PageRequest.of(page,size);
+        if(!orderBy.equals("title") || !orderBy.equals("category")) orderBy = "tempoDiLettura";
+        Pageable pageable = PageRequest.of(page,size, Sort.by(orderBy).ascending());
         return this.blogPostRepository.findAll(pageable);
     }
 
